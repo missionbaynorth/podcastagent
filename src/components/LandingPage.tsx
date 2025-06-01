@@ -15,7 +15,7 @@ export const LandingPage: React.FC = () => {
       <div className="text-center relative z-10 px-4">
         <button
           onClick={() => navigate('/register')}
-          className="group flex flex-col items-center transition-transform duration-300 hover:scale-105 focus:outline-none focus:ring-4 focus:ring-neon/50 rounded-3xl"
+          className="group flex flex-col items-center transition-transform duration-300 hover:scale-105 focus:outline-none focus-visible:ring-4 focus-visible:ring-neon/50 rounded-3xl"
           aria-label="Get started with AI Podcast creation"
         >
           <div className="relative mb-8">
