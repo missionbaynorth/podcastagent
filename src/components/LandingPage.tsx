@@ -20,10 +20,8 @@ export const LandingPage: React.FC = () => {
         >
           <div className="relative mb-8">
             <div className="absolute inset-0 bg-gradient-to-r from-neon to-electric-blue rounded-full animate-pulse-slow blur-xl opacity-50"></div>
-            <div className="relative w-[400px] h-[400px] flex items-center justify-center bg-gradient-to-br from-deep-purple via-electric-blue/20 to-neon/20 rounded-full backdrop-blur-sm border border-white/20 shadow-2xl">
+            <div className="relative w-[400px] h-[400px] rounded-full flex items-center justify-center">
               <Mic className="w-40 h-40 text-white/90" />
-              <div className="absolute inset-0 bg-gradient-to-t from-deep-purple/80 via-deep-purple/40 to-transparent"></div>
-              <div className="absolute inset-0 bg-gradient-to-l from-electric-blue/20 to-transparent mix-blend-overlay"></div>
             </div>
           </div>
 
