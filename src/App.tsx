@@ -1,7 +1,7 @@
-import { RegistrationPage } from './components/RegistrationPage';
+import { BrandSystem } from './components/BrandSystem';
 
 function App() {
-  return <RegistrationPage />;
+  return <BrandSystem />;
 }
 
 export default App;
