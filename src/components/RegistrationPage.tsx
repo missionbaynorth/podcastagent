@@ -41,7 +41,6 @@ export const RegistrationPage: React.FC = () => {
     const { name, value } = e.target;
     
     if (section && field) {
-      // Skip updates for fixed fields
       if ((section === 'personalStyle' && (field === 'hostingFormat' || field === 'episodeLength'))) {
         return;
       }
@@ -143,7 +142,6 @@ export const RegistrationPage: React.FC = () => {
         setSubmitSuccess(true);
         resetForm();
         
-        // Reset success message after 5 seconds
         setTimeout(() => {
           setSubmitSuccess(false);
         }, 5000);
@@ -217,7 +215,6 @@ export const RegistrationPage: React.FC = () => {
     <>
       <div className="grain-overlay"></div>
       <div className="min-h-screen py-12 px-4 sm:px-6 relative z-10">
-        {/* Success Banner */}
         {submitSuccess && (
           <div className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-md">
             <div className="glass-card p-4 flex items-center animate-slideDown">
@@ -229,7 +226,6 @@ export const RegistrationPage: React.FC = () => {
           </div>
         )}
 
-        {/* Error Banner */}
         {submitError && (
           <div className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-md">
             <div className="glass-card border-red-400/30 p-4 flex items-center animate-slideDown">
@@ -246,23 +242,19 @@ export const RegistrationPage: React.FC = () => {
         )}
 
         <div className="w-full max-w-[800px] mx-auto relative">
-          {/* Floating Shapes */}
           <div className="absolute -top-20 -left-20 w-40 h-40 bg-electric-blue/20 rounded-full blur-3xl floating-shape"></div>
           <div className="absolute -bottom-20 -right-20 w-40 h-40 bg-neon/20 rounded-full blur-3xl floating-shape" style={{ animationDelay: '-2s' }}></div>
 
-          {/* Header */}
           <div className="text-center mb-12">
             <h1 className="text-headline font-bold font-outfit leading-tight mb-4 bg-gradient-to-r from-white to-white/80 bg-clip-text text-transparent">
-              Create Your Custom Podcast
+              Launch Your AI Podcast
             </h1>
             <p className="text-body text-white/70">
-              Tell us your preferences to get started with AI-powered podcast creation
+              Create Without Limits - Transform Your Ideas Into Professional Podcasts
             </p>
           </div>
 
-          {/* Form */}
           <form onSubmit={handleSubmit} className="space-y-8">
-            {/* Personal Information */}
             <div className="form-section">
               <h2 className="text-[20px] font-semibold mb-1">Personal Information</h2>
               <p className="text-gray-500 text-[15px] mb-5">Tell us about yourself</p>
@@ -312,7 +304,6 @@ export const RegistrationPage: React.FC = () => {
               </div>
             </div>
 
-            {/* Content Theme & Focus */}
             <div className="form-section">
               <h2 className="text-[20px] font-semibold mb-1">Content Theme & Focus</h2>
               <p className="text-gray-500 text-[15px] mb-5">Define your podcast's core content and audience</p>
@@ -344,7 +335,6 @@ export const RegistrationPage: React.FC = () => {
               </div>
             </div>
 
-            {/* Personal Style & Format */}
             <div className="form-section">
               <h2 className="text-[20px] font-semibold mb-1">Personal Style & Format</h2>
               <p className="text-gray-500 text-[15px] mb-5">Define how you'll present your content</p>
@@ -388,7 +378,6 @@ export const RegistrationPage: React.FC = () => {
               </div>
             </div>
             
-            {/* Submit Button */}
             <div className="flex flex-col items-center pt-8">
               <button 
                 type="submit" 
