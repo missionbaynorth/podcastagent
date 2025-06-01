@@ -33,7 +33,7 @@ export const LandingPage: React.FC = () => {
             <div className="glass-card p-6">
               <Sparkles className="w-8 h-8 text-neon mb-3" />
               <h3 className="text-lg font-semibold mb-2">Professional Quality</h3>
-              <p className="text-white/70">Studio-grade audio production powered by AI technology</p>
+              <p className="text-white/70">Studio-grade audio and video powered by AI technology</p>
             </div>
             <div className="glass-card p-6">
               <Clock className="w-8 h-8 text-neon mb-3" />
