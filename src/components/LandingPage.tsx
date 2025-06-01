@@ -26,7 +26,7 @@ export const LandingPage: React.FC = () => {
           </div>
 
           <h1 className="text-4xl md:text-5xl font-bold font-outfit mb-4 bg-gradient-to-r from-white to-white/80 bg-clip-text text-transparent">
-            Launch Your AI Podcast
+            Launch Your AI Podcast - Fast
           </h1>
           
           <div className="flex items-center justify-center space-x-2 text-neon font-semibold text-xl">
