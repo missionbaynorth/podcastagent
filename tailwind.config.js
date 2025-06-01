@@ -14,8 +14,8 @@ export default {
         },
         'neon': {
           DEFAULT: '#00FF94',
+          translucent: 'rgba(0, 255, 148, 0.5)'
         },
-        'neon-translucent': 'rgba(0, 255, 148, 0.5)',
         'metallic': {
           DEFAULT: '#FFD700',
           translucent: 'rgba(255, 215, 0, 0.4)'
