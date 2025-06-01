@@ -246,11 +246,8 @@ export const RegistrationPage: React.FC = () => {
           <div className="absolute -bottom-20 -right-20 w-40 h-40 bg-neon/20 rounded-full blur-3xl floating-shape" style={{ animationDelay: '-2s' }}></div>
 
           <div className="text-center mb-12">
-            <h1 className="text-headline font-bold font-outfit leading-tight mb-4 bg-gradient-to-r from-white to-white/80 bg-clip-text text-transparent">
-              Launch Your AI Podcast - Fast
-            </h1>
-            <p className="text-body text-white/70">
-              Instantly create engaging podcasts with AI - No experience needed
+            <p className="text-body text-white/80 mb-8">
+              Please take a moment to answer these brief questions. Once submitted, we'll instantly send the podcast link directly to your email inbox so you can share right away.
             </p>
           </div>
 
