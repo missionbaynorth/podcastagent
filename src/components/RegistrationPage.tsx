@@ -247,10 +247,10 @@ export const RegistrationPage: React.FC = () => {
 
           <div className="text-center mb-12">
             <h1 className="text-headline font-bold font-outfit leading-tight mb-4 bg-gradient-to-r from-white to-white/80 bg-clip-text text-transparent">
-              Launch Your AI Podcast
+              Transform Your Ideas Into Professional Podcasts
             </h1>
             <p className="text-body text-white/70">
-              Create Without Limits - Transform Your Ideas Into Professional Podcasts
+              Instantly create engaging podcasts with AI - No experience needed
             </p>
           </div>
 
