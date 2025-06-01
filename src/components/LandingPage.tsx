@@ -20,13 +20,14 @@ export const LandingPage: React.FC = () => {
         >
           <div className="relative mb-8">
             <div className="absolute inset-0 bg-gradient-to-r from-neon to-electric-blue rounded-full animate-pulse-slow blur-xl opacity-50"></div>
-            <div className="relative w-[300px] h-[300px] flex items-center justify-center bg-gradient-to-br from-deep-purple via-electric-blue/20 to-neon/20 rounded-full backdrop-blur-sm border border-white/20 shadow-2xl overflow-hidden">
+            <div className="relative w-[400px] h-[400px] flex items-center justify-center bg-gradient-to-br from-deep-purple via-electric-blue/20 to-neon/20 rounded-full backdrop-blur-sm border border-white/20 shadow-2xl overflow-hidden">
               <img 
-                src="https://images.pexels.com/photos/3760263/pexels-photo-3760263.jpeg?auto=compress&cs=tinysrgb&w=600"
-                alt="Professional AI Avatar"
-                className="w-full h-full object-cover opacity-90 mix-blend-luminosity"
+                src="https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg"
+                alt="Professional Digital Avatar"
+                className="w-full h-full object-cover object-top opacity-90 mix-blend-luminosity"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-deep-purple/80 to-transparent"></div>
+              <div className="absolute inset-0 bg-gradient-to-t from-deep-purple/80 via-deep-purple/40 to-transparent"></div>
+              <div className="absolute inset-0 bg-gradient-to-l from-electric-blue/20 to-transparent mix-blend-overlay"></div>
             </div>
           </div>
 
