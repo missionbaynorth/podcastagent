@@ -308,7 +308,7 @@ export const RegistrationPage: React.FC = () => {
                 </div>
                 
                 <div>
-                  <label htmlFor="linkedinUrl" className="input-label">LinkedIn Profile</label>
+                  <label htmlFor="linkedinUrl" className="input-label">Social Media Profile</label>
                   <input
                     type="url"
                     id="linkedinUrl"
