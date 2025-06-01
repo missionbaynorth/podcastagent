@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowRight, Mic } from 'lucide-react';
+import { ArrowRight, Mic, User } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 export const LandingPage: React.FC = () => {
@@ -21,7 +21,10 @@ export const LandingPage: React.FC = () => {
           <div className="relative mb-8">
             <div className="absolute inset-0 bg-gradient-to-r from-neon to-electric-blue rounded-full animate-pulse-slow blur-xl opacity-50"></div>
             <div className="relative w-[400px] h-[400px] rounded-full flex items-center justify-center">
-              <Mic className="w-40 h-40 text-white/90" />
+              <div className="relative">
+                <User className="w-48 h-48 text-white/90" strokeWidth={1.5} />
+                <Mic className="absolute bottom-0 right-0 w-24 h-24 text-neon" strokeWidth={1.5} />
+              </div>
             </div>
           </div>
 
