@@ -22,7 +22,7 @@ export const LandingPage: React.FC = () => {
           </div>
 
           <h1 className="text-4xl md:text-6xl font-bold font-outfit mb-6 bg-gradient-to-r from-white to-white/80 bg-clip-text text-transparent leading-tight">
-            Create Your AI Podcast<br />in Minutes
+            Your Podcast, Produced by AI in Minutes
           </h1>
           
           <p className="text-xl text-white/70 mb-8 max-w-2xl mx-auto">
