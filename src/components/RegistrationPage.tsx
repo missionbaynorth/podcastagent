@@ -359,16 +359,6 @@ export const RegistrationPage: React.FC = () => {
               <p className="text-gray-500 text-[15px] mb-5">Define how you'll present your content</p>
               
               <div className="space-y-5">
-                <div>
-                  <label className="input-label">Hosting Format</label>
-                  <input
-                    type="text"
-                    className="input-field bg-gray-100 text-deep-purple font-medium"
-                    value="Solo Host"
-                    disabled
-                  />
-                </div>
-                
                 {renderSelect(
                   'personalStyle',
                   'tone',
