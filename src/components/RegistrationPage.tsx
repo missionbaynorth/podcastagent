@@ -1,13 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { CheckCircle, Loader2, AlertCircle, XCircle, Sparkles, Mic, Users, Zap } from 'lucide-react';
 import axios from 'axios';
 import { validateForm } from '../utils/validation';
 import { FormData, FormErrors } from '../types';
+import { PodcastModal } from './PodcastModal';
+import { useInterval } from 'react-use';
 
 const WEBHOOK_URL = import.meta.env.PROD 
   ? "https://podcastagentai.app.n8n.cloud/webhook/9b4a668c-b3a7-43b7-9b5a-ed1ced8cd78a"
   : "/api/webhook";
 const TOTAL_TIMEOUT = 10000;
+const PODCAST_POLL_INTERVAL = 10000; // 10 seconds
+const PODCAST_POLL_TIMEOUT = 300000; // 5 minutes
 
 export const RegistrationPage: React.FC = () => {
   const [formData, setFormData] = useState<FormData>({
@@ -33,6 +37,13 @@ export const RegistrationPage: React.FC = () => {
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [retryCount, setRetryCount] = useState(0);
   
+  // Podcast monitoring state
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [podcastUrl, setPodcastUrl] = useState<string | undefined>();
+  const [pollStartTime, setPollStartTime] = useState<number | null>(null);
+  const [shouldPoll, setShouldPoll] = useState(false);
+  const [pollError, setPollError] = useState(false);
+
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,
     section?: string,
@@ -119,11 +130,41 @@ export const RegistrationPage: React.FC = () => {
     setRetryCount(0);
   };
 
+  const pollPodcastStatus = async () => {
+    try {
+      const response = await axios.get(`${WEBHOOK_URL}/status/${formData.email}`);
+      if (response.data.podcastUrl) {
+        setPodcastUrl(response.data.podcastUrl);
+        setShouldPoll(false);
+        setIsModalOpen(true);
+      }
+    } catch (error) {
+      console.error('Error polling podcast status:', error);
+      if (pollStartTime && Date.now() - pollStartTime >= PODCAST_POLL_TIMEOUT) {
+        setShouldPoll(false);
+        setPollError(true);
+        setIsModalOpen(true);
+      }
+    }
+  };
+
+  useInterval(
+    pollPodcastStatus,
+    shouldPoll ? PODCAST_POLL_INTERVAL : null
+  );
+
+  useEffect(() => {
+    if (shouldPoll && !pollStartTime) {
+      setPollStartTime(Date.now());
+    }
+  }, [shouldPoll]);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitError(null);
     setSubmitSuccess(false);
     setRetryCount(0);
+    setPollError(false);
     
     const formErrors = validateForm(formData);
     setErrors(formErrors);
@@ -141,6 +182,10 @@ export const RegistrationPage: React.FC = () => {
         console.log('Form submission response:', response.data);
         setSubmitSuccess(true);
         resetForm();
+        
+        // Start polling for podcast URL
+        setShouldPoll(true);
+        setPollStartTime(Date.now());
         
         setTimeout(() => {
           setSubmitSuccess(false);
@@ -165,6 +210,12 @@ export const RegistrationPage: React.FC = () => {
     }
   };
   
+  const handleRetry = () => {
+    setPollError(false);
+    setShouldPoll(true);
+    setPollStartTime(Date.now());
+  };
+
   const renderTextArea = (
     section: string,
     field: string,
@@ -397,6 +448,14 @@ export const RegistrationPage: React.FC = () => {
           </form>
         </div>
       </div>
+
+      <PodcastModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        podcastUrl={podcastUrl}
+        error={pollError}
+        onRetry={handleRetry}
+      />
     </>
   );
 };
