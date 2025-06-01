@@ -1,17 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { CheckCircle, Loader2, AlertCircle, XCircle, Sparkles, Mic, Users, Zap } from 'lucide-react';
 import axios from 'axios';
 import { validateForm } from '../utils/validation';
 import { FormData, FormErrors } from '../types';
 import { PodcastModal } from './PodcastModal';
-import { useInterval } from 'react-use';
 
 const WEBHOOK_URL = import.meta.env.PROD 
   ? "https://podcastagentai.app.n8n.cloud/webhook/9b4a668c-b3a7-43b7-9b5a-ed1ced8cd78a"
   : "/api/webhook";
-const TOTAL_TIMEOUT = 10000;
-const PODCAST_POLL_INTERVAL = 10000; // 10 seconds
-const PODCAST_POLL_TIMEOUT = 300000; // 5 minutes
+const REQUEST_TIMEOUT = 300000; // 5 minutes
 
 export const RegistrationPage: React.FC = () => {
   const [formData, setFormData] = useState<FormData>({
@@ -40,10 +37,8 @@ export const RegistrationPage: React.FC = () => {
   // Podcast monitoring state
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [podcastUrl, setPodcastUrl] = useState<string | undefined>();
-  const [pollStartTime, setPollStartTime] = useState<number | null>(null);
-  const [shouldPoll, setShouldPoll] = useState(false);
   const [pollError, setPollError] = useState(false);
-
+  
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,
     section?: string,
@@ -82,33 +77,6 @@ export const RegistrationPage: React.FC = () => {
     }
   };
 
-  const submitFormWithRetry = async (payload: any): Promise<any> => {
-    const startTime = Date.now();
-    let lastError: any;
-
-    while (Date.now() - startTime < TOTAL_TIMEOUT) {
-      try {
-        const remainingTime = TOTAL_TIMEOUT - (Date.now() - startTime);
-        if (remainingTime <= 0) break;
-
-        const response = await axios.post(WEBHOOK_URL, payload, {
-          headers: { 'Content-Type': 'application/json' },
-          timeout: remainingTime
-        });
-        return response;
-      } catch (error) {
-        lastError = error;
-        setRetryCount(prev => prev + 1);
-        
-        const retryDelay = Math.min(1000 * Math.pow(2, retryCount), 3000);
-        if (Date.now() + retryDelay - startTime >= TOTAL_TIMEOUT) break;
-        
-        await new Promise(resolve => setTimeout(resolve, retryDelay));
-      }
-    }
-    throw lastError;
-  };
-  
   const resetForm = () => {
     setFormData({
       fullName: '',
@@ -130,35 +98,6 @@ export const RegistrationPage: React.FC = () => {
     setRetryCount(0);
   };
 
-  const pollPodcastStatus = async () => {
-    try {
-      const response = await axios.get(`${WEBHOOK_URL}/status/${formData.email}`);
-      if (response.data.podcastUrl) {
-        setPodcastUrl(response.data.podcastUrl);
-        setShouldPoll(false);
-        setIsModalOpen(true);
-      }
-    } catch (error) {
-      console.error('Error polling podcast status:', error);
-      if (pollStartTime && Date.now() - pollStartTime >= PODCAST_POLL_TIMEOUT) {
-        setShouldPoll(false);
-        setPollError(true);
-        setIsModalOpen(true);
-      }
-    }
-  };
-
-  useInterval(
-    pollPodcastStatus,
-    shouldPoll ? PODCAST_POLL_INTERVAL : null
-  );
-
-  useEffect(() => {
-    if (shouldPoll && !pollStartTime) {
-      setPollStartTime(Date.now());
-    }
-  }, [shouldPoll]);
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitError(null);
@@ -178,14 +117,25 @@ export const RegistrationPage: React.FC = () => {
           submittedAt: new Date().toISOString()
         };
 
-        const response = await submitFormWithRetry(payload);
+        const response = await axios.post(WEBHOOK_URL, payload, {
+          timeout: REQUEST_TIMEOUT,
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+
         console.log('Form submission response:', response.data);
+        
+        if (response.data?.podcastUrl) {
+          setPodcastUrl(response.data.podcastUrl);
+          setIsModalOpen(true);
+        } else {
+          setPollError(true);
+          setIsModalOpen(true);
+        }
+        
         setSubmitSuccess(true);
         resetForm();
-        
-        // Start polling for podcast URL
-        setShouldPoll(true);
-        setPollStartTime(Date.now());
         
         setTimeout(() => {
           setSubmitSuccess(false);
@@ -194,7 +144,9 @@ export const RegistrationPage: React.FC = () => {
         console.error('Form submission error:', error);
         if (axios.isAxiosError(error)) {
           if (error.code === 'ECONNABORTED') {
-            setSubmitError('Request timed out after 10 seconds. Please try again.');
+            setSubmitError('Request timed out. The podcast generation is taking longer than expected.');
+            setPollError(true);
+            setIsModalOpen(true);
           } else if (!error.response) {
             setSubmitError('Network error. Please check your internet connection and try again.');
           } else {
@@ -210,10 +162,29 @@ export const RegistrationPage: React.FC = () => {
     }
   };
   
-  const handleRetry = () => {
+  const handleRetry = async () => {
     setPollError(false);
-    setShouldPoll(true);
-    setPollStartTime(Date.now());
+    setIsSubmitting(true);
+    
+    try {
+      const response = await axios.post(WEBHOOK_URL, {
+        email: formData.email,
+        retry: true
+      }, {
+        timeout: REQUEST_TIMEOUT
+      });
+      
+      if (response.data?.podcastUrl) {
+        setPodcastUrl(response.data.podcastUrl);
+      } else {
+        setPollError(true);
+      }
+    } catch (error) {
+      console.error('Retry error:', error);
+      setPollError(true);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const renderTextArea = (
