@@ -26,7 +26,7 @@ export const LandingPage: React.FC = () => {
           </h1>
           
           <p className="text-xl text-white/70 mb-8 max-w-2xl mx-auto">
-            Transform your ideas into a professional podcast - no experience required. Our AI technology handles the production while you focus on your message.
+            Transform your topics into a professional podcast. Our AI technology handles the production while you focus on your message.
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
