@@ -1,0 +1,79 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('/fonts/fonts.css');
+
+@layer base {
+  html {
+    font-family: 'SF Pro Text', system-ui, sans-serif;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'SF Pro Display', system-ui, sans-serif;
+  }
+  
+  body {
+    @apply bg-white text-[#1D1D1F] antialiased;
+  }
+}
+
+@layer components {
+  .input-field {
+    @apply w-full px-4 py-3 rounded-lg border border-gray-200 
+    focus:outline-none focus:ring-2 focus:ring-[#0066CC] focus:border-transparent
+    transition-all duration-200 text-[15px];
+  }
+  
+  .input-label {
+    @apply block text-[#1D1D1F] text-[15px] font-medium mb-2;
+  }
+  
+  .input-error {
+    @apply text-[#FF3B30] text-[13px] mt-1 font-medium;
+  }
+  
+  .apple-button {
+    @apply bg-[#0066CC] text-white rounded-full py-3 px-8 
+    font-medium text-[17px] transition-all duration-200
+    hover:bg-[#0055AF] focus:outline-none focus:ring-2 
+    focus:ring-[#0066CC] focus:ring-opacity-50 shadow-sm;
+  }
+  
+  .topic-card {
+    @apply bg-white border border-gray-200 rounded-xl p-5 
+    cursor-pointer transition-all duration-200 
+    hover:shadow-md hover:translate-y-[-2px] relative;
+  }
+  
+  .topic-card.selected {
+    @apply border-[#0066CC] bg-[#F5F9FC];
+  }
+  
+  .form-section {
+    @apply mb-8;
+  }
+  
+  .form-section-title {
+    @apply text-[20px] font-semibold mb-1;
+  }
+  
+  .form-section-subtitle {
+    @apply text-gray-500 text-[15px] mb-5;
+  }
+}
+
+@keyframes slideDown {
+  from {
+    transform: translate(-50%, -100%);
+    opacity: 0;
+  }
+  to {
+    transform: translate(-50%, 0);
+    opacity: 1;
+  }
+}
+
+.animate-slideDown {
+  animation: slideDown 0.3s ease-out forwards;
+}
