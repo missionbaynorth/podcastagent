@@ -14,6 +14,7 @@ export default defineConfig({
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api\/webhook/, '/webhook/9b4a668c-b3a7-43b7-9b5a-ed1ced8cd78a'),
         secure: false,
+        timeout: 300000,
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json'
