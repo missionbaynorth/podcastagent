@@ -23,9 +23,6 @@ export default {
           translucent: 'rgba(255, 215, 0, 0.4)'
         }
       },
-      ringColor: {
-        'neon-translucent': 'rgba(0, 255, 148, 0.5)'
-      },
       fontFamily: {
         'outfit': ['Outfit', 'sans-serif'],
         'inter': ['Inter', 'sans-serif'],
