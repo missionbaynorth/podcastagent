@@ -2,65 +2,84 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('/fonts/fonts.css');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap');
 
 @layer base {
   html {
-    font-family: 'SF Pro Text', system-ui, sans-serif;
-  }
-  
-  h1, h2, h3, h4, h5, h6 {
-    font-family: 'SF Pro Display', system-ui, sans-serif;
+    font-family: 'Inter', system-ui, sans-serif;
   }
   
   body {
-    @apply bg-white text-[#1D1D1F] antialiased;
+    @apply bg-gradient-to-br from-deep-purple to-electric-blue min-h-screen text-white antialiased;
+    background-attachment: fixed;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Outfit', system-ui, sans-serif;
   }
 }
 
+.grain-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  opacity: 0.6;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
 @layer components {
+  .glass-card {
+    @apply backdrop-blur-lg bg-white/10 border border-white/20 rounded-2xl shadow-xl;
+  }
+
   .input-field {
-    @apply w-full px-4 py-3 rounded-lg border border-gray-200 
-    focus:outline-none focus:ring-2 focus:ring-[#0066CC] focus:border-transparent
-    transition-all duration-200 text-[15px];
+    @apply w-full px-4 py-3 rounded-xl border border-white/20 bg-white/5 backdrop-blur-sm
+    focus:outline-none focus:ring-2 focus:ring-neon focus:border-transparent
+    transition-all duration-200 text-[18px] text-white placeholder-white/50;
   }
   
   .input-label {
-    @apply block text-[#1D1D1F] text-[15px] font-medium mb-2;
+    @apply block text-white/90 text-[18px] font-medium mb-2 font-outfit;
   }
   
   .input-error {
-    @apply text-[#FF3B30] text-[13px] mt-1 font-medium;
+    @apply text-red-300 text-[14px] mt-1 font-medium;
   }
-  
-  .apple-button {
-    @apply bg-[#0066CC] text-white rounded-full py-3 px-8 
-    font-medium text-[17px] transition-all duration-200
-    hover:bg-[#0055AF] focus:outline-none focus:ring-2 
-    focus:ring-[#0066CC] focus:ring-opacity-50 shadow-sm;
-  }
-  
-  .topic-card {
-    @apply bg-white border border-gray-200 rounded-xl p-5 
-    cursor-pointer transition-all duration-200 
-    hover:shadow-md hover:translate-y-[-2px] relative;
-  }
-  
-  .topic-card.selected {
-    @apply border-[#0066CC] bg-[#F5F9FC];
-  }
-  
+
   .form-section {
-    @apply mb-8;
+    @apply glass-card p-8 mb-8 relative overflow-hidden;
+  }
+
+  .form-section::before {
+    content: '';
+    @apply absolute inset-0 bg-gradient-to-r from-white/5 to-transparent opacity-20;
   }
   
   .form-section-title {
-    @apply text-[20px] font-semibold mb-1;
+    @apply text-[32px] font-bold mb-2 bg-gradient-to-r from-white to-white/80 bg-clip-text text-transparent;
   }
   
   .form-section-subtitle {
-    @apply text-gray-500 text-[15px] mb-5;
+    @apply text-white/70 text-[18px] mb-6;
   }
+
+  .submit-button {
+    @apply bg-gradient-to-r from-neon to-neon/80 text-deep-purple font-semibold
+    rounded-full py-4 px-12 min-w-[240px] text-[18px] transition-all duration-300
+    hover:shadow-[0_0_20px_rgba(0,255,148,0.5)] hover:scale-[1.02]
+    focus:outline-none focus:ring-2 focus:ring-neon focus:ring-opacity-50
+    disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100;
+  }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.floating-shape {
+  animation: float 6s ease-in-out infinite;
 }
 
 @keyframes slideDown {
@@ -76,4 +95,9 @@
 
 .animate-slideDown {
   animation: slideDown 0.3s ease-out forwards;
+}
+
+/* Custom font classes */
+.font-outfit {
+  font-family: 'Outfit', system-ui, sans-serif;
 }
