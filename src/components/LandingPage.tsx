@@ -22,8 +22,8 @@ export const LandingPage: React.FC = () => {
             <div className="absolute inset-0 bg-gradient-to-r from-neon to-electric-blue rounded-full animate-pulse-slow blur-xl opacity-50"></div>
             <div className="relative w-[400px] h-[400px] flex items-center justify-center bg-gradient-to-br from-deep-purple via-electric-blue/20 to-neon/20 rounded-full backdrop-blur-sm border border-white/20 shadow-2xl overflow-hidden">
               <img 
-                src="https://images.pexels.com/photos/2182970/pexels-photo-2182970.jpeg"
-                alt="Professional Podcast Host Avatar"
+                src="https://images.pexels.com/photos/8438918/pexels-photo-8438918.jpeg"
+                alt="AI-Generated Professional Host"
                 className="w-full h-full object-cover object-center opacity-90 mix-blend-luminosity"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-deep-purple/80 via-deep-purple/40 to-transparent"></div>
