@@ -354,7 +354,7 @@ export const RegistrationPage: React.FC = () => {
                   <label className="input-label">Hosting Format</label>
                   <input
                     type="text"
-                    className="input-field bg-gray-100"
+                    className="input-field bg-gray-100 text-deep-purple font-medium"
                     value="Solo Host"
                     disabled
                   />
@@ -372,7 +372,7 @@ export const RegistrationPage: React.FC = () => {
                   <label className="input-label">Episode Length</label>
                   <input
                     type="text"
-                    className="input-field bg-gray-100"
+                    className="input-field bg-gray-100 text-deep-purple font-medium"
                     value="3 minutes"
                     disabled
                   />
