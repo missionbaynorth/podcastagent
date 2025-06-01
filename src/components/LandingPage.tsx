@@ -47,13 +47,15 @@ export const LandingPage: React.FC = () => {
             </div>
           </div>
 
-          <button
-            onClick={() => navigate('/register')}
-            className="bg-gradient-to-r from-neon to-neon/80 text-deep-purple font-semibold rounded-full py-4 px-8 text-xl transition-all duration-300 hover:shadow-[0_0_20px_rgba(0,255,148,0.5)] hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-neon focus:ring-opacity-50 group flex items-center justify-center space-x-2"
-          >
-            <span>Get Started Now</span>
-            <ArrowRight className="w-5 h-5 transform group-hover:translate-x-1 transition-transform" />
-          </button>
+          <div className="flex justify-center">
+            <button
+              onClick={() => navigate('/register')}
+              className="bg-gradient-to-r from-neon to-neon/80 text-deep-purple font-semibold rounded-full py-4 px-8 text-xl transition-all duration-300 hover:shadow-[0_0_20px_rgba(0,255,148,0.5)] hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-neon focus:ring-opacity-50 group flex items-center justify-center space-x-2"
+            >
+              <span>Get Started Now</span>
+              <ArrowRight className="w-5 h-5 transform group-hover:translate-x-1 transition-transform" />
+            </button>
+          </div>
         </div>
       </div>
     </div>
